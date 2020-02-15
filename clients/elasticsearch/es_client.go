@@ -3,7 +3,9 @@ package elasticsearch
 import (
 	"context"
 	"fmt"
-	"github.com/Emanuel9/bookstore_items-api/logger"
+	"github.com/Emanuel9/bookstore_utils-go/logger"
+
+	//"github.com/Emanuel9/bookstore_items-api/logger"
 	"github.com/olivere/elastic"
 	"time"
 )
@@ -22,10 +24,13 @@ type esClient struct {
 }
 
 func Init() {
+	log := logger.GetLogger()
 	client, err := elastic.NewClient(
 		elastic.SetURL("http://127.0.0.1:9200"),
 		elastic.SetHealthcheckInterval(10 * time.Second),
 		elastic.SetSniff(false),
+		elastic.SetErrorLog(log),
+		elastic.SetInfoLog(log),
 		
 	)
 
